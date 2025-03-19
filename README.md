@@ -52,7 +52,6 @@ import chamois
 def embed_paragraphs(text: str) -> list[str]:
     return text.strip().split("\n\n")
 
-# Process text with the decorated function
 text = """Once upon a time..."""
 embeddings: list[chamois.Embedding] = embed_paragraphs(text)
 
