@@ -1,7 +1,122 @@
 [project]
 name = "chamois"
-version = "0.0.0"
-description = "Coming soon..."
+version = "0.0.1"
+description = "The standardized information retrieval interface."
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+authors = [{ name = "William Bakst", email = "william@mirascope.com" }]
+maintainers = [{ name = "William Bakst", email = "william@mirascope.com" }]
+keywords = [
+    "rag",
+    "embeddings",
+    "artificial intelligence",
+    "llm",
+    "developer tools",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries",
+]
+
+dependencies = ["typing-extensions>=4.12.2"]
+
+[project.optional-dependencies]
+openai = ["openai>=1.66.5"]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.25.3",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.11.0",
+]
+
+[tool.uv.sources]
+chamois = { workspace = true }
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::DeprecationWarning"]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "YTT",
+    "B",
+    "T10",
+    "T20",
+    "C4",
+    "PYI006",
+    "SIM",
+    "ANN",
+    "RUF022",
+]
+ignore = ['D105', 'D107', 'D205', 'D415', 'E501', 'B011', 'B028', 'B904']
+fixable = ["ALL"]
+pydocstyle = { convention = 'google' }
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ['chamois', 'tests']
+
+[tool.coverage.report]
+exclude_also = [
+    "@overload",
+    "@abstractmethod",
+    "if TYPE_CHECKING:",
+    "except ImportError:",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -2,6 +2,8 @@
 
 import importlib.metadata
 
-__version__ = importlib.metadata.version("mirascope")
+from chamois.embeddings import Embedding, embed
 
-__all__ = ["__version__"]
+__version__ = importlib.metadata.version("chamois")
+
+__all__ = ["Embedding", "__version__", "embed"]
