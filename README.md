@@ -20,27 +20,31 @@ import asyncio
 
 import chamois
 
-# Define a function that splits text into chunks
+
 @chamois.embed("openai:text-embedding-3-small", dims=128)
 async def embed_paragraphs(text: str) -> list[str]:
-    """Split text into paragraphs and embed them."""
     return text.strip().split("\n\n")
 
-# Process text with the decorated function
+
 text = """
 Once upon a time in a forest far away, there lived a family of rabbits.
 
 They spent their days gathering food and playing games.
 """
 embeddings: list[chamois.Embedding] = asyncio.run(embed_paragraphs(text))
-
-# Access the embedding vectors
-print(f"Number of embeddings: {len(embeddings)}")
-# > 2
-print(f"First embedding dimensions: {len(embeddings[0].embedding)}")
-# > 128
-print(f"First few values: {embeddings[0].embedding[:5]}")
-# > [0.016108348965644836, 0.012391675263643265, ...]
+print(embeddings)
+# > [
+#     Embedding(
+#       text=Once upon a time in ...,
+#       model=openai:text-embedding-3-small,
+#       dimensions=128
+#     ),
+#     Embedding(
+#       text=They spent their day...,
+#       model=openai:text-embedding-3-small,
+#       dimensions=128
+#     ),
+#   ]
 ```
 
 You can of course also run things synchronously:
@@ -48,16 +52,19 @@ You can of course also run things synchronously:
 ```python
 import chamois
 
+
 @chamois.embed("openai:text-embedding-3-small", dims=128)
 def embed_paragraphs(text: str) -> list[str]:
     return text.strip().split("\n\n")
 
-text = """Once upon a time..."""
-embeddings: list[chamois.Embedding] = embed_paragraphs(text)
 
-print(f"Number of embeddings: {len(embeddings)}")
-print(f"First embedding dimensions: {len(embeddings[0].embedding)}")
-print(f"First few values: {embeddings[0].embedding[:5]}")
+text = """
+Once upon a time in a forest far away, there lived a family of rabbits.
+
+They spent their days gathering food and playing games.
+"""
+embeddings: list[chamois.Embedding] = embed_paragraphs(text)
+print(embeddings)
 ```
 
 ## Supported Providers
