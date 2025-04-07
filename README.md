@@ -8,7 +8,7 @@ In its current form, Chamois is a simple wrapper on embedding endpoints like Ope
 ## Installation
 
 ```bash
-pip install chamois[openai]
+pip install "chamois[openai]"
 ```
 
 ## Usage
